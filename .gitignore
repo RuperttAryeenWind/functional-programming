@@ -1,2 +1,13 @@
 *.class
 *.log
+
+# Mac OS folder configs.
+.DS_Store
+
+# IDE settings and state
+.idea
+.vscode
+
+# Gradle build files
+implementation/bin
+**/.gradle

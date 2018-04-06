@@ -19,10 +19,8 @@ public class IdentityTest {
 
   @Test
   public void mapTest() {
-    Identity<Float> floatId = Identity.of(new Float(1));
-    Function<Float, Integer> floatIntegerFunction = (Float p) -> {
-      return p.intValue();
-    };
+    Identity<Float> floatId = Identity.of(1f);
+    Function<Float, Integer> floatIntegerFunction = Float::intValue;
     Identity<Integer> intId = floatId.map(floatIntegerFunction);
 
     Assert.assertTrue(floatId.get().equals(1.0f));
@@ -49,19 +47,16 @@ public class IdentityTest {
     Identity<String> stringId1 = Identity.of("Hello World");
     Identity<String> stringId2 = Identity.of("Hi World");
 
-//    BiFunction<Integer,String> biConsumer = (key,value) ->
-//        System.out.println("Key:"+ key+" Value:"+ value);
-
     String str = "Hi World";
 
     Assert.assertFalse(stringId1.map(str::equals).get());
-    Assert.assertFalse(stringId1.map(p -> stringId2.equals(p)).get());
+    Assert.assertFalse(stringId1.map(stringId2::equals).get());
   }
 
 
   @Test
   public void biFunctionCompare() {
-    BiFunction<String, String, Boolean> comparator = (str1, str2) -> str1.equals(str2);
+    BiFunction<String, String, Boolean> comparator = String::equals;
 
     Identity<String> stringId1 = Identity.of("Hello World");
     Identity<String> stringId2 = Identity.of("Hi World");
